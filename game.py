@@ -1,44 +1,61 @@
+from datetime import datetime
+
 PLAYER_1 = "X"
 PLAYER_2 = "O"
 BLANK = " "
 
+now = datetime.now()
+game = open("game-"+now.strftime("%d-%m-%Y %H-%M-%S")+".txt","a+")
+
 BOARD = {
-1: " ", 2: " ", 3: " ",
-4: " ", 5: " ", 6: " ",
-7: " ", 8: " ", 9: " "
+    1: " ", 2: " ", 3: " ",
+    4: " ", 5: " ", 6: " ",
+    7: " ", 8: " ", 9: " "
 }
 
-def check_victory(player, board ):
-      if board[1] == player and board[2] == player and board[3] == player:
-            return True
-      elif board[4] == player and board[5] == player and board[6] == player:
-            return True
-      elif board[7] == player and board[8] == player and board[9] == player:
-            return True
-      elif board[1] == player and board[5] == player and board[9] == player:
-            return True      
-      elif board[7] == player and board[5] == player and board[3] == player:
-            return True
-      else:
-            return False
+
+def check_victory(player, board):
+    if board[1] == player and board[2] == player and board[3] == player:
+        return True
+    elif board[4] == player and board[5] == player and board[6] == player:
+        return True
+    elif board[7] == player and board[8] == player and board[9] == player:
+        return True
+    elif board[1] == player and board[4] == player and board[7] == player:
+        return True
+    elif board[2] == player and board[5] == player and board[8] == player:
+        return True
+    elif board[3] == player and board[6] == player and board[9] == player:
+        return True
+    elif board[1] == player and board[5] == player and board[9] == player:
+        return True
+    elif board[7] == player and board[5] == player and board[3] == player:
+        return True
+    else:
+        return False
+
 
 def is_occupied(pos, board):
-      if board[pos] != BLANK:
-            return True
-      return False
-
+    return board[pos] != BLANK
 
 
 def make_move(pos, player, board):
-      if is_occupied(pos, board):
-            return False
-      else:
-            board[pos] = player
-            return True
+    if is_occupied(pos, board):
+        return False
+    else:
+        board[pos] = player
+        return True
+
 
 def print_board(board):
-      print(board[1]+"|"+board[2]+"|"+board[3])
-      print("-+-+-")
-      print(board[4]+"|"+board[5]+"|"+board[6])
-      print("-+-+-")
-      print(board[7]+"|"+board[8]+"|"+board[9])
+    print(board[1]+"|"+board[2]+"|"+board[3])
+    game.write(board[1]+"|"+board[2]+"|"+board[3]+"\n")
+    print("-+-+-")
+    game.write("-+-+-\n")
+    print(board[4]+"|"+board[5]+"|"+board[6])
+    game.write(board[4]+"|"+board[5]+"|"+board[6]+"\n")
+    print("-+-+- ")
+    game.write("-+-+-\n")
+    print(board[7]+"|"+board[8]+"|"+board[9])
+    game.write(board[7]+"|"+board[8]+"|"+board[9]+"\n")
+    game.write("\n")

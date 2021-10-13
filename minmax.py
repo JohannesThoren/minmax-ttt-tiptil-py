@@ -1,3 +1,9 @@
+# Copyright (c) 2021 Johannes Thorén
+# 
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 from game import check_victory, is_occupied, make_move, print_board, BOARD, PLAYER_1, PLAYER_2
 import game
 import math
@@ -42,7 +48,6 @@ def minimax(maximizing, board, depth):
             for move in get_possible_moves(board_copy):
                   if make_move(move, PLAYER_1, board_copy):
                         score = minimax(False, board_copy, depth - 1)[0]
-                        board_copy[move] = " "
                   else:
                         return bestScore, bestMove
                   if (score > bestScore):
@@ -60,7 +65,6 @@ def minimax(maximizing, board, depth):
             for move in get_possible_moves(board_copy):
                   if make_move(move, PLAYER_2, board_copy):
                         score = minimax(True, board_copy, depth - 1)[0]
-                        board_copy[move] = " "
                   else:
                         return bestScore, bestMove
 
@@ -173,4 +177,11 @@ def ai_game():
                   break
 
 
-ai_game()
+import sys
+
+arg = sys.argv[1]
+
+if arg == "game":
+      play_game()
+elif arg == "ai":
+      ai_game()

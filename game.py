@@ -20,6 +20,9 @@ BOARD = {
 }
 
 
+
+# Checks all possible victory states in tic tac toe and checks if specified player meets the 
+# rules. checks if victory#
 def check_victory(player, board):
     if board[1] == player and board[2] == player and board[3] == player:
         return True
@@ -46,13 +49,16 @@ def is_occupied(pos, board):
 
 
 def make_move(pos, player, board):
+
+    # checks if a move a is leagal
+    # and if so then make that move and return true 
     if is_occupied(pos, board):
         return False
     else:
         board[pos] = player
         return True
 
-
+# prints the board to terminal and writes to log file
 def print_board(board):
     print(board[1]+"|"+board[2]+"|"+board[3])
     game.write(board[1]+"|"+board[2]+"|"+board[3]+"\n")
